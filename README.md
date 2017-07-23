@@ -1,4 +1,4 @@
-# GridServlet
+# SeleniumGridServlet
 
 ## Description
-GridServlet is Java servlet extending Selenium Grid API
+SeleniumGridServlet is Java servlet extending Selenium Grid API
