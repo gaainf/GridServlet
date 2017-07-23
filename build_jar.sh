@@ -17,7 +17,7 @@ if [ ! -f ${build_dir}/java-json.jar ]; then
     unzip -o ${build_dir}/java-json.jar.zip -d ${build_dir}/
 fi
 
-#build class (it should be the current page to keep all dependencies)
+#build class (it should be the current directory to keep all dependencies)
 cd ${build_dir}
 javac -cp "./*" ../${src_dir}/${servlet}.java -d ./
 jar cvf ./${servlet}.jar ./${servlet}.class
