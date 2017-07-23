@@ -3,7 +3,6 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.openqa.grid.web.servlet.RegistryBasedServlet;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,25 +22,28 @@ import org.openqa.grid.web.servlet.RegistryBasedServlet;
 import org.openqa.selenium.internal.BuildInfo;
 import org.openqa.selenium.remote.CapabilityType;
 
-public class SeleniumGridServlet extends RegistryBasedServlet {
+public class SeleniumGridServlet extends RegistryBasedServlet 
+{
     private static final long serialVersionUID = 1L;
     
     private ServletConfig config;
     private final Logger log = Logger.getLogger(getClass().getName());
     public String version;
 
-    public SeleniumGridServlet() {
+    public SeleniumGridServlet() 
+    {
         this(null);
     }
 
-    public SeleniumGridServlet(Registry registry) {
+    public SeleniumGridServlet(Registry registry) 
+    {
         super(registry);
         version = new BuildInfo().getReleaseLabel();
-
     }
     
     public void init(ServletConfig config) 
-        throws ServletException {
+        throws ServletException 
+    {
         this.config = config;
     }
     
@@ -57,11 +59,12 @@ public class SeleniumGridServlet extends RegistryBasedServlet {
 
     public String getServletInfo()
     {
-        return "A Simple Servlet";
+        return this.getClass().getCanonicalName() + " Servlet";
     }
     
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-        throws ServletException, IOException {
+        throws ServletException, IOException 
+    {
         try {
             if ("/status".equals(req.getPathInfo())) {
                 sendJson(status(), req, resp);
@@ -151,7 +154,8 @@ public class SeleniumGridServlet extends RegistryBasedServlet {
     }
 
     protected JSONArray getActiveSessions()
-    throws JSONException {
+        throws JSONException 
+    {
         JSONArray jsonActiveSessions = new JSONArray();
         ProxySet proxies = this.getRegistry().getAllProxies();
         Iterator<RemoteProxy> iterator = proxies.iterator();
@@ -180,8 +184,8 @@ public class SeleniumGridServlet extends RegistryBasedServlet {
     }
 
     private JSONObject render(TestSession session) 
-        throws JSONException {
-        
+        throws JSONException 
+    {
         JSONObject json = new JSONObject();
         json.put("key", session.getExternalKey().getKey());
         json.put("inactivity_time", session.getInactivityTime());
@@ -190,6 +194,5 @@ public class SeleniumGridServlet extends RegistryBasedServlet {
         json.put("orphaned", session.isOrphaned());
         return json;
     }
-
 }
 
