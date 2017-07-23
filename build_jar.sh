@@ -1,6 +1,6 @@
 #!/bin/bash
 
-servlet=GridServlet
+servlet=SeleniumGridServlet
 build_dir=build
 src_dir=src
 

@@ -23,18 +23,18 @@ import org.openqa.grid.web.servlet.RegistryBasedServlet;
 import org.openqa.selenium.internal.BuildInfo;
 import org.openqa.selenium.remote.CapabilityType;
 
-public class GridServlet extends RegistryBasedServlet {
+public class SeleniumGridServlet extends RegistryBasedServlet {
     private static final long serialVersionUID = 1L;
     
     private ServletConfig config;
     private final Logger log = Logger.getLogger(getClass().getName());
     public String version;
 
-    public GridServlet() {
+    public SeleniumGridServlet() {
         this(null);
     }
 
-    public GridServlet(Registry registry) {
+    public SeleniumGridServlet(Registry registry) {
         super(registry);
         version = new BuildInfo().getReleaseLabel();
 
