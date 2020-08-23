@@ -1,0 +1,118 @@
+openapi: "3.0.0"
+info:
+  title: SeleniumGridServlet
+  version: 1.0.0
+  description: Java servlet extending Selenium Grid API
+paths:
+  /status:
+    get:
+      operationId: getStatus
+      summary: Get Selenium Grid status
+      responses:
+        '200':
+          description: |-
+            200 response
+          content:
+            application/json:
+              examples: 
+                no active sessions:
+                  value:
+                    {
+                        "registration_url": "http://192.168.0.1:4444/grid/register/",
+                        "configuration": ["capabilityMatcher=\"org.openqa.grid.internal.utils.DefaultCapabilityMatcher\"", "newSessionWaitTimeout=-1", "throwOnCapabilityNotPresent=true", "cleanUpCycle=5000", "custom={}", "host=\"192.168.0.1\"", "servlets=[\"SeleniumGridServlet\"]", "withoutServlets=[]", "browserTimeout=0", "debug=false", "port=4444", "role=\"hub\"", "timeout=1800"],
+                        "port": 4444,
+                        "host": "192.168.0.1",
+                        "proxies": [{
+                            "slots": [{
+                                "browser": "chrome",
+                                "url": "http://192.168.0.1:5555/wd/hub",
+                                "lastSession": -1
+                            }, {
+                                "browser": "firefox",
+                                "url": "http://192.168.0.1:5555/wd/hub",
+                                "lastSession": -1
+                            }],
+                            "busy": false,
+                            "id": "http://192.168.0.1:5555"
+                        }],
+                        "sessionsCount": 0,
+                        "version": "3.4.0"
+                    }
+                active session:
+                  value:
+                    {
+                        "registration_url": "http://192.168.0.1:4444/grid/register/",
+                        "configuration": ["capabilityMatcher=\"org.openqa.grid.internal.utils.DefaultCapabilityMatcher\"", "newSessionWaitTimeout=-1", "throwOnCapabilityNotPresent=true", "cleanUpCycle=5000", "custom={}", "host=\"192.168.0.1\"", "servlets=[\"SeleniumGridServlet\"]", "withoutServlets=[]", "browserTimeout=0", "debug=false", "port=4444", "role=\"hub\"", "timeout=1800"],
+                        "port": 4444,
+                        "host": "192.168.0.1",
+                        "proxies": [{
+                            "slots": [{
+                                "browser": "chrome",
+                                "url": "http://192.168.0.1:5555/wd/hub",
+                                "lastSession": -1
+                            }, {
+                                "session": {
+                                    "inactivity_time": 15545,
+                                    "requested_capabilities": {
+                                        "browserName": "chrome",
+                                        "javascriptEnabled": true
+                                    },
+                                    "forwarding_request": false,
+                                    "orphaned": false,
+                                    "key": "d9cf26ee-ccb6-44d1-aad7-56e3c3465b24"
+                                },
+                                "browser": "chrome",
+                                "url": "http://192.168.0.101:5555/wd/hub",
+                                "lastSession": 1598201221849
+                            }],
+                            "busy": false,
+                            "id": "http://192.168.0.1:5555"
+                        }],
+                        "sessionsCount": 0,
+                        "version": "3.4.0"
+                    }
+        '500':
+          description: |-
+            500 response
+          content:
+            application/json: 
+              examples: 
+                default:
+                  value: |
+                   {
+                     "Error message"
+                   }
+  /sessions:
+    get:
+      operationId: getSessions
+      summary: Get information about all active sessions
+      responses:
+        '200':
+          description: |-
+            200 response
+          content:
+            application/json: 
+              examples:
+                default:
+                  value:
+                    {
+                        "activeSessions": [{
+                            "node": "http://192.168.0.1:5555/wd/hub",
+                            "browser": "chrome",
+                            "key": "d9cf26ee-ccb6-44d1-aad7-56e3c3465b24"
+                        }]
+                    }
+                empty:
+                  value:
+                    {"activeSessions":[]}
+        '500':
+          description: |-
+            500 response
+          content:
+            application/json: 
+              examples: 
+                default:
+                  value: |
+                   {
+                     "Error message"
+                   }
