@@ -1,5 +1,5 @@
 import java.io.*;
-import javax.servlet.ServletConfig;
+//import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,14 +9,13 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openqa.grid.common.exception.GridException;
+//import org.openqa.grid.common.exception.GridException;
 import org.openqa.grid.internal.ProxySet;
 import org.openqa.grid.internal.Registry;
 import org.openqa.grid.internal.RemoteProxy;
 
 import org.openqa.grid.internal.TestSlot;
 import org.openqa.grid.internal.TestSession;
-import org.openqa.grid.common.SeleniumProtocol;
 import org.openqa.grid.web.Hub;
 import org.openqa.grid.web.servlet.RegistryBasedServlet;
 import org.openqa.selenium.internal.BuildInfo;
@@ -26,35 +25,30 @@ public class SeleniumGridServlet extends RegistryBasedServlet
 {
     private static final long serialVersionUID = 1L;
     
-    private ServletConfig config;
     private final Logger log = Logger.getLogger(getClass().getName());
     public String version;
 
     public SeleniumGridServlet() 
     {
         this(null);
+        this.version = new BuildInfo().getReleaseLabel();
     }
 
     public SeleniumGridServlet(Registry registry) 
     {
         super(registry);
-        version = new BuildInfo().getReleaseLabel();
     }
     
-    public void init(ServletConfig config) 
-        throws ServletException 
+    /*public void init(ServletConfig config) throws ServletException 
     {
-        this.config = config;
-    }
+    	super.init(config);
+    	this.config = config;
+    	this.version = new BuildInfo().getReleaseLabel();
+    }*/
     
     public void destroy()
     {
         // do nothing.
-    }
-
-    public ServletConfig getServletConfig()
-    {   
-        return config;
     }
 
     public String getServletInfo()
@@ -144,7 +138,7 @@ public class SeleniumGridServlet extends RegistryBasedServlet
         status.put("proxies", jsonProxies);
         int sessionsCount = getRegistry().getNewSessionRequestCount();
         status.put("sessionsCount", sessionsCount);
-        status.put("version", version);
+        status.put("version", this.version);
         status.put("configuration", getRegistry().getConfiguration().toJson().getAsJsonObject().entrySet());
         status.put("host", h.getConfiguration().host);
         status.put("port", h.getConfiguration().port);

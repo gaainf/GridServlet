@@ -1,0 +1,106 @@
+<project 
+xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<modelVersion>4.0.0</modelVersion>
+<groupId>SeleniumGridServlet</groupId>
+<artifactId>SeleniumGridServlet</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+
+<name>SeleniumGridServlet</name>
+<url></url>
+
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
+
+<dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>1.10.19</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20200518</version>
+        <scope>provided</scope>
+    </dependency>
+    <!--<dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet</artifactId>
+        <version>2.4.0</version>
+        <scope>provided</scope>
+    </dependency>-->
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>4.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-server-standalone</artifactId>
+        <version>3.4.0</version>
+        <scope>system</scope>
+        <systemPath>${project.basedir}/build/selenium-server-standalone-3.4.0.jar</systemPath>
+        <optional>true</optional>
+    </dependency>
+
+</dependencies>
+
+<build>
+<sourceDirectory>${project.basedir}/src</sourceDirectory>
+<testSourceDirectory>${project.basedir}/tests</testSourceDirectory>
+<directory>${project.basedir}/build</directory>
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.2</version>
+        <executions>
+            <execution>
+                <id>copy-dependencies</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${project.basedir}/build</outputDirectory>
+                    <overWriteReleases>false</overWriteReleases>
+                    <overWriteSnapshots>false</overWriteSnapshots>
+                    <overWriteIfNewer>true</overWriteIfNewer>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+    <plugin>
+        <groupId>com.googlecode.maven-download-plugin</groupId>
+        <artifactId>download-maven-plugin</artifactId>
+        <version>1.4.2</version>
+        <executions>
+            <execution>
+                <id>install-jbpm</id>
+                <phase>validate</phase>
+                <goals>
+                    <goal>wget</goal>
+                </goals>
+                <configuration>
+                    <url>https://selenium-release.storage.googleapis.com/3.4/selenium-server-standalone-3.4.0.jar</url>
+                    <outputDirectory>${project.basedir}/build</outputDirectory>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+</plugins>
+</build>
+</project>
